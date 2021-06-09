@@ -30,7 +30,7 @@ int codigoFuncionario()
 {
     int codigoFuncionario=0;
     codigoFuncionario++;
-    printf("\nC”DIGO %i\n",codigoFuncionario);
+    printf("\nC√ìDIGO %i\n",codigoFuncionario);
     return (codigoFuncionario);
 }
 int nomeFuncionario()
@@ -38,18 +38,18 @@ int nomeFuncionario()
     int x=0;
     char nomeFuncionario[101];
     printf("\nCADASTRO DE NOME\n");
-    printf("\Funcion·rio:\n");
+    printf("\nFuncion√°rio:\n");
     fflush(stdin);
     gets(nomeFuncionario);
 
-    //O nome deve ser uma letra do alfabeto ou um caractere espaÁo, enquanto ele n„o for assim, n„o È possÌvel prosseguir
+    //O nome deve ser uma letra do alfabeto ou um caractere espa√ßo, enquanto ele n√£o for assim, n√£o √© poss√≠vel prosseguir
 
     for(x=0; x<strlen(nomeFuncionario); x++)
     {
         while(!((nomeFuncionario[x]>='a' && nomeFuncionario[x]<='z') || (nomeFuncionario[x]>='A' && nomeFuncionario[x]<='Z') || (nomeFuncionario[x]==' ')))
         {
-            printf("\nPor favor insira um nome v·lido.\n");
-            printf("\Funcion·rio:\n");
+            printf("\nPor favor insira um nome v√°lido.\n");
+            printf("\nFuncion√°rio:\n");
             fflush(stdin);
             gets(nomeFuncionario);
         }
@@ -72,7 +72,7 @@ int telefoneFuncionario()
     while(dddFuncionarioFixo>100 || dddFuncionarioFixo<=10);
     do
     {
-        printf("N˙mero de telefone fixo: \t");
+        printf("N√∫mero de telefone fixo: \t");
         scanf("%d",&fixoFuncionario);
     }
     while(fixoFuncionario<10000000 || fixoFuncionario>99999999);
@@ -86,9 +86,9 @@ int telefoneFuncionario()
     while(dddFuncionarioCelular>100 || dddFuncionarioCelular<=10);
     do
     {
-        printf("N˙mero: \t");
+        printf("N√∫mero: \t");
         scanf("%d",&celularFuncionario);
-        //ver se o primeiro dÌgito È 9
+        //ver se o primeiro d√≠gito √© 9
         numInteiro=celularFuncionario/100000000;
     }
     while(celularFuncionario<100000000 || celularFuncionario>999999999 || numInteiro!=9);
@@ -100,7 +100,7 @@ int cargoFuncionario()
 {
     char tipoCargo[20];
     printf("\nCADASTRO DE CARGO\n");
-    printf("\nQual o cargo do funcion·rio?\nRecepcionista\nAuxiliar de limpeza\nGarÁom\nGerente\n");
+    printf("\nQual o cargo do funcion√°rio?\nRecepcionista\nAuxiliar de limpeza\nGar√ßom\nGerente\n");
     fflush(stdin);
     gets(tipoCargo);
 
