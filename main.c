@@ -19,7 +19,7 @@ int salarioFuncionario();
 int main()
 {
     cadastroClientes ();
-   cadastroFuncionario ();
+    cadastroFuncionario ();
     return 0;
 }
 //Cadastro cliente
