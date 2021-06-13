@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 /* 
 ESTADIA= 
     código da estadia,
@@ -11,32 +12,59 @@ ESTADIA=
     número do quarto
 */
 
+int hospedes;
+char entrada[11],saida[11];
+
 
 int main(){
-    char nomeCliente[50],entrada[11],saida[11];
-    int hospedes,confirmarDados,loopData=0;
-    printf("CADASTRO DE ESTADIA\n\n");
-    printf("Por favor, digite o nome do cliente que deseja se hospedar:");
-    scanf("%s",&nomeCliente);
-    printf("Quantidade de hóspedes:");
-    scanf("%d",&hospedes);
-    while(loopData == 0){
-        printf("Data de entrada: (dd/mm/aaaa)\n");
-        scanf("%s",&entrada);
-        loopData = verificaFormatoData(entrada);
-        printf("Data de saída: (dd/mm/aaaa)\n");
-        scanf("%s",&saida);
-        loopData = verificaFormatoData(saida);
+    cadastroEstadia();
+    diarias();
+}
+
+int cadastroEstadia(){
+    char nomeCliente[50];
+    int confirmarDados=0,loopData=0;
+    while(confirmarDados == 0){
+        printf("CADASTRO DE ESTADIA\n\n");
+        printf("Por favor, digite o nome do cliente que deseja se hospedar:");
+        scanf("%s",&nomeCliente);
+        printf("Quantidade de hóspedes:");
+        scanf("%d",&hospedes);
+        while(loopData == 0){
+            printf("Data de entrada: (dd/mm/aaaa)\n");
+            scanf("%s",&entrada);
+            loopData = verificaFormatoData(entrada);
+            if(loopData == 0) continue;
+            printf("Data de saída: (dd/mm/aaaa)\n");
+            scanf("%s",&saida);
+            loopData = verificaFormatoData(saida);
+        }
+        
+        printf("Por favor, confirme os dados do cliente!\n\n");
+        printf("Cliente => %s\nN° de hóspedes => %d\n",nomeCliente,hospedes);
+        printf("Data de Entrada => %s\nData de Saída => %s\n",entrada,saida);
+        while(confirmarDados != 1 && confirmarDados != 2){
+            printf("\nOs dados estão corretos?\n");
+            printf("[1]Sim\n[2]Não\n");
+            scanf("%d",&confirmarDados);
+            if(confirmarDados == 1)
+                break;
+            else if(confirmarDados == 2){
+                confirmarDados = 0;
+                loopData = 0;
+                break;
+            }
+            else 
+                printf("\nPor favor insira um número válido\n\n");
+        }
+
     }
-    
-    printf("Por favor, confirme os dados do cliente!\n\n");
-    printf("Cliente => %s\nN° de hóspedes => %d\n",nomeCliente,hospedes);
-    printf("Data de Entrada => %s\nData de Saída => %s\n",entrada,saida);
+
     return 0;
 }
 
+
 int verificaFormatoData(char data[11]){
-    printf("%s",data);
     //Verificar se a data possui mais de 11 caracteres
     if(strlen(data) != 10){
         printf("Data inválida,deve possuir 10 carateres e seguir o formato (dd/mm/aaaa)\n");
@@ -46,7 +74,6 @@ int verificaFormatoData(char data[11]){
 
     //Verificar se existe as barras no formato de data
     // Barras = data[2] && data[5] 
-
 
     for(int i = 0; i < strlen(data); i++){
         if (data[2] != '/' || data[5] != '/'){
@@ -60,8 +87,29 @@ int verificaFormatoData(char data[11]){
         }
 
     }
-
     return 1;
-
     
+}
+
+int diarias(){
+    char anoEntrada[5],anoSaida[5],mesEntrada[3],mesSaida[3],diaEntrada[3],diaSaida[3];
+
+    for(int i= 0;i < strlen(entrada);i++){
+        if(i == 2 || i == 5)
+            continue;
+        if(i == 0 || i == 1){
+            diaEntrada[i] = entrada[i];
+        }
+
+        if(i == 3 || i == 4){
+            for(int j = 0; j <= 2; j++)
+                mesEntrada[j] = entrada[i];
+        }
+                
+        if(i >= 6 && i <= 9){
+            for(int j = 0; j <= 4; j++)
+                anoEntrada[j] = entrada[i];
+        }
+    };
+    printf("Dia => %s\nMês %s\nAno %s",diaEntrada,mesEntrada,anoEntrada);
 }
