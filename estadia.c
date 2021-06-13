@@ -93,23 +93,39 @@ int verificaFormatoData(char data[11]){
 
 int diarias(){
     char anoEntrada[5],anoSaida[5],mesEntrada[3],mesSaida[3],diaEntrada[3],diaSaida[3];
-
+    // dd/mm/aaaa
     for(int i= 0;i < strlen(entrada);i++){
-        if(i == 2 || i == 5)
+        switch(i){
+          case 0:
+            diaEntrada[0] = entrada[i];
+            break;
+          case 1:
+            diaEntrada[1] = entrada[i];
+            break;
+          case 3:
+            mesEntrada[0] = entrada[i];
+            break;
+          case 4:
+            mesEntrada[1] = entrada[i];
+            break;
+          case 6:
+            anoEntrada[0] = entrada[i];
+            break; 
+          case 7: 
+            anoEntrada[1] = entrada[i];
+            break;
+          case 8:
+            anoEntrada[2] = entrada[i];
+            break;
+          case 9: 
+            anoEntrada[3] = entrada[i];
+            break;
+          default:
             continue;
-        if(i == 0 || i == 1){
-            diaEntrada[i] = entrada[i];
         }
 
-        if(i == 3 || i == 4){
-            for(int j = 0; j <= 2; j++)
-                mesEntrada[j] = entrada[i];
-        }
-                
-        if(i >= 6 && i <= 9){
-            for(int j = 0; j <= 4; j++)
-                anoEntrada[j] = entrada[i];
-        }
-    };
-    printf("Dia => %s\nMês %s\nAno %s",diaEntrada,mesEntrada,anoEntrada);
+      }
+    printf("Dia => %s\nMês %s\nAno %s",diaEntrada,mesEntrada,anoEntrada);       
+  
 }
+
