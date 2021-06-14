@@ -1,22 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <locale.h>
 
-/* 
-ESTADIA= 
-    código da estadia,
-    data de entrada, 
-    data de saída, 
-    quantidade de diárias, 
-    código do cliente, 
-    número do quarto
-*/
+
+int cadastroEstadia();
+int diarias();
+int verificaFormatoData(char []);
+
 
 int hospedes;
 char entrada[11],saida[11];
 
 
 int main(){
+    setlocale(LC_ALL, "portuguese");
     cadastroEstadia();
     diarias();
 }
@@ -92,9 +90,10 @@ int verificaFormatoData(char data[11]){
 }
 
 int diarias(){
-    char anoEntrada[5],anoSaida[5],mesEntrada[3],mesSaida[3],diaEntrada[3],diaSaida[3];
-    // dd/mm/aaaa
-    for(int i= 0;i < strlen(entrada);i++){
+    char anoEntrada[5],mesEntrada[5],diaEntrada[5];
+    char anoSaida[5],mesSaida[5],diaSaida[5];
+
+    for(int i = 0;i < strlen(entrada);i++){
         switch(i){
           case 0:
             diaEntrada[0] = entrada[i];
@@ -121,11 +120,14 @@ int diarias(){
             anoEntrada[3] = entrada[i];
             break;
           default:
-            continue;
+            break;
         }
+    }
 
-      }
-    printf("Dia => %s\nMês %s\nAno %s",diaEntrada,mesEntrada,anoEntrada);       
-  
+    mesEntrada[2] = '\0';
+    anoEntrada[4] = '\0';
+
+
+
 }
 
