@@ -93,31 +93,41 @@ int diarias(){
     char anoEntrada[5],mesEntrada[5],diaEntrada[5];
     char anoSaida[5],mesSaida[5],diaSaida[5];
 
+    int anoTotal,mesTotal,diaTotal,totalDiarias;
+
     for(int i = 0;i < strlen(entrada);i++){
         switch(i){
           case 0:
             diaEntrada[0] = entrada[i];
+            diaSaida[0] = saida[i];
             break;
           case 1:
             diaEntrada[1] = entrada[i];
+            diaSaida[1] = saida[i];
             break;
           case 3:
             mesEntrada[0] = entrada[i];
+            mesSaida[0] = saida[i];
             break;
           case 4:
             mesEntrada[1] = entrada[i];
+            mesSaida[1] = saida[i];
             break;
           case 6:
             anoEntrada[0] = entrada[i];
+            anoSaida[0] = saida[i];
             break; 
           case 7: 
             anoEntrada[1] = entrada[i];
+            anoSaida[1] = saida[i];
             break;
           case 8:
             anoEntrada[2] = entrada[i];
+            anoSaida[2] = saida[i];
             break;
           case 9: 
             anoEntrada[3] = entrada[i];
+            anoSaida[3] = saida[i];
             break;
           default:
             break;
@@ -125,9 +135,18 @@ int diarias(){
     }
 
     mesEntrada[2] = '\0';
+    mesSaida[2] = '\0';
     anoEntrada[4] = '\0';
+    anoSaida[4] = '\0';
+
+    // printf("Dia De entrada => %s\nDia de saída => %s\nMês E => %s\nMês Saída =>%s\nAno E => %s\nAnoS => %s",
+        // diaEntrada,diaSaida,mesEntrada,mesSaida,anoEntrada,anoSaida
+    // );
+
+    anoTotal = (atoi(anoSaida) - atoi(anoEntrada));
+    mesTotal = atoi(mesSaida) - atoi(mesEntrada);
+    diaTotal = atoi(diaSaida) - atoi(diaEntrada);
 
 
-
+    printf("%d",anoTotal);
 }
-
