@@ -7,48 +7,50 @@
 int cadastroEstadia();
 int diarias();
 int verificaFormatoData(char []);
+int quartos(char [],char []);
 
 
-struct TEstadia{
-  int codigo;
+typedef struct {
+  int numero,hospedes,status;
+  float valorDiaria;
+} Tquarto;
+
+
+typedef struct {
+  int codigo,totalDiarias,hospedes;
   char entrada[11],saida[11];
-  
-};
+  char nomeCliente[50];
+} Testadia;
 
-typedef struct TEstadia estadia;
-
-int hospedes;
-char entrada[11],saida[11];
+Testadia estadia;
 
 
 int main(){
     setlocale(LC_ALL, "portuguese");
     cadastroEstadia();
-    diarias();
 }
 
 int cadastroEstadia(){
-    char nomeCliente[50];
     int confirmarDados=0,loopData=0;
     while(confirmarDados == 0){
         printf("CADASTRO DE ESTADIA\n\n");
         printf("Por favor, digite o nome do cliente que deseja se hospedar:");
-        scanf("%s",&nomeCliente);
+        scanf("%s",&estadia.nomeCliente);
         printf("Quantidade de hóspedes:");
-        scanf("%d",&hospedes);
+        scanf("%d",&estadia.hospedes);
         while(loopData == 0){
             printf("Data de entrada: (dd/mm/aaaa)\n");
-            scanf("%s",&entrada);
-            loopData = verificaFormatoData(entrada);
+            scanf("%s",&estadia.entrada);
+            loopData = verificaFormatoData(estadia.entrada);
             if(loopData == 0) continue;
             printf("Data de saída: (dd/mm/aaaa)\n");
-            scanf("%s",&saida);
-            loopData = verificaFormatoData(saida);
+            scanf("%s",&estadia.saida);
+            loopData = verificaFormatoData(estadia.saida);  
         }
         
         printf("Por favor, confirme os dados do cliente!\n\n");
-        printf("Cliente => %s\nN° de hóspedes => %d\n",nomeCliente,hospedes);
-        printf("Data de Entrada => %s\nData de Saída => %s\n",entrada,saida);
+        printf("Cliente => %s\nN° de hóspedes => %d\n",estadia.nomeCliente,estadia.hospedes);
+        printf("Data de Entrada => %s\nData de Saída => %s\n",estadia.entrada,estadia.saida);
         while(confirmarDados != 1 && confirmarDados != 2){
             printf("\nOs dados estão corretos?\n");
             printf("[1]Sim\n[2]Não\n");
@@ -63,10 +65,17 @@ int cadastroEstadia(){
             else 
                 printf("\nPor favor insira um número válido\n\n");
         }
+        estadia.totalDiarias = diarias();
+        
 
     }
 
     return 0;
+}
+
+int quartos(char entrada[11],char saida[11]){
+
+
 }
 
 
@@ -103,39 +112,39 @@ int diarias(){
 
     int anoTotal,mesTotal,diaTotal,totalDiarias;
 
-    for(int i = 0;i < strlen(entrada);i++){
+    for(int i = 0;i < strlen(estadia.entrada);i++){
         switch(i){
           case 0:
-            diaEntrada[0] = entrada[i];
-            diaSaida[0] = saida[i];
+            diaEntrada[0] = estadia.entrada[i];
+            diaSaida[0] = estadia.saida[i];
             break;
           case 1:
-            diaEntrada[1] = entrada[i];
-            diaSaida[1] = saida[i];
+            diaEntrada[1] = estadia.entrada[i];
+            diaSaida[1] = estadia.saida[i];
             break;
           case 3:
-            mesEntrada[0] = entrada[i];
-            mesSaida[0] = saida[i];
+            mesEntrada[0] = estadia.entrada[i];
+            mesSaida[0] = estadia.saida[i];
             break;
           case 4:
-            mesEntrada[1] = entrada[i];
-            mesSaida[1] = saida[i];
+            mesEntrada[1] = estadia.entrada[i];
+            mesSaida[1] = estadia.saida[i];
             break;
           case 6:
-            anoEntrada[0] = entrada[i];
-            anoSaida[0] = saida[i];
+            anoEntrada[0] = estadia.entrada[i];
+            anoSaida[0] = estadia.saida[i];
             break; 
           case 7: 
-            anoEntrada[1] = entrada[i];
-            anoSaida[1] = saida[i];
+            anoEntrada[1] = estadia.entrada[i];
+            anoSaida[1] = estadia.saida[i];
             break;
           case 8:
-            anoEntrada[2] = entrada[i];
-            anoSaida[2] = saida[i];
+            anoEntrada[2] =estadia.entrada[i];
+            anoSaida[2] = estadia.saida[i];
             break;
           case 9: 
-            anoEntrada[3] = entrada[i];
-            anoSaida[3] = saida[i];
+            anoEntrada[3] = estadia.entrada[i];
+            anoSaida[3] = estadia.saida[i];
             break;
           default:
             break;
@@ -147,14 +156,11 @@ int diarias(){
     anoEntrada[4] = '\0';
     anoSaida[4] = '\0';
 
-    // printf("Dia De entrada => %s\nDia de saída => %s\nMês E => %s\nMês Saída =>%s\nAno E => %s\nAnoS => %s",
-        // diaEntrada,diaSaida,mesEntrada,mesSaida,anoEntrada,anoSaida
-    // );
-
-    anoTotal = (atoi(anoSaida) - atoi(anoEntrada));
-    mesTotal = atoi(mesSaida) - atoi(mesEntrada);
+    anoTotal = (atoi(anoSaida) - atoi(anoEntrada)) * 365;
+    mesTotal = (atoi(mesSaida) - atoi(mesEntrada)) * 30;
     diaTotal = atoi(diaSaida) - atoi(diaEntrada);
 
+    totalDiarias = diaTotal + anoTotal + mesTotal;
 
-    printf("%d",anoTotal);
+    return totalDiarias;  
 }
