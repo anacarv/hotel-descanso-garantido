@@ -3,24 +3,23 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#include "quarto.h"
+
 int cadastroEstadia();
 int diarias();
 int verificaFormatoData(char[]);
-int quartos(char[], char[]);
+int quartos();
+
+
 
 typedef struct {
-  int numero, hospedes, status;
-  float valorDiaria;
-
-} Tquarto;
-
-typedef struct {
-  int codigo, totalDiarias, hospedes;
+  int codigo, totalDiarias, hospedes, numeroQuarto;
   char entrada[11], saida[11];
   char nomeCliente[50];
 } Testadia;
 
 Testadia estadia;
+
 
 int main(){
   setlocale(LC_ALL, "portuguese");
@@ -74,30 +73,32 @@ int cadastroEstadia(){
 
     estadia.totalDiarias = diarias();
     quartos(estadia.entrada, estadia.saida);
-
+    
 
   }
 
   return 0;
 }
 
-int quartos(char entrada[11], char saida[11]){
+int quartos(){
   FILE *quartosFile;
-  if(quartosFile = fopen("quartos.txt","r") == NULL)
-    printf("Erro na abertura do arquivo\n");
-  else{
-    
+  int posicao;
+  if((quartosFile = fopen("quartos.txt","r+b")) == NULL)
+    printf("Erro na abertura do arquivo...\n");
+
+  posicao = encontraQuarto(estadia.hospedes,quartosFile);
+  if(posicao != -1){
+    fseek(quartosFile,sizeof(quarto) * (posicao),SEEK_SET);
+    fread(&quarto,sizeof(quarto),1,quartosFile);
+    printf("Número do Quarto => %d\nN° de hóspedes => %d\n",quarto.numero,quarto.hospedes);
+    printf("Valor da diária do quarto => %.2f\n",quarto.valorDiaria);
+    printf("Status do quarto => %s\n",quarto.status == 1 ? "Desocupado" : "Ocupado");
   }
+  else
+    printf("Quarto não atende a quantidade de hóspedes!\n");
 }
 
-int localizaQuartos(FILE *quartosFile,char entrada[11],char saida[11]){
-  int posicao=-1, achou =0;
-  fseek(quartosFile,0,SEEK_SET);
-  fread(&estadia,sizeof(estadia),1,quartosFile);
-  while(!feof(quartosFile) && !achou){
-    posicao++;  
-  }
-}
+
 
 
 

@@ -2,6 +2,6 @@
 #define QUARTO_H_INCLUDED
 #include "quarto.c"
 
-float felipe(int);
+int encontraQuarto(int,FILE *);
 
 #endif

@@ -13,11 +13,13 @@ Tquarto quarto;
 
 int cadastraQuarto();
 int cadastraDadosQuarto(FILE *);
+int encontraQuarto(int,FILE *);
+int contaQuartos(FILE *);
 
 
-int main(){
-    cadastraQuarto();
-}
+// int main(){
+//     cadastraQuarto();
+// }
 
 int cadastraQuarto(){
 
@@ -38,15 +40,16 @@ int cadastraQuarto(){
 
 
 int cadastraDadosQuarto(FILE *fp){
-    int confirmarDados=0, loopData=0;
+    int confirmarDados=0;
 
     fseek(fp,0,SEEK_SET);
     fread(&quarto,sizeof(quarto),1,fp);
 
-    quarto.numero = contaQuartos(fp);
-    quarto.status = 1;
+
 
     while(confirmarDados == 0){
+        quarto.numero = contaQuartos(fp);
+        quarto.status = 1;
         printf("Digite o número de hóspedes para o quarto:");
         scanf("%d",&quarto.hospedes);
         printf("Digite o valor da diária do quarto:");
@@ -55,7 +58,7 @@ int cadastraDadosQuarto(FILE *fp){
         printf("Por favor, confirme os dados do quarto!\n\n");
         printf("Número do Quarto => %d\nN° de hóspedes => %d\n",quarto.numero,quarto.hospedes);
         printf("Valor da diária do quarto => %.2f\n",quarto.valorDiaria);
-        printf("Status do quarto => %s\n",quarto.status == 1 ? "Disponível" : "Indisponível");
+        printf("Status do quarto => %s\n",quarto.status == 1 ? "Desocupado" : "Ocupado");
 
         while(confirmarDados != 1 && confirmarDados != 2){
             printf("\nOs dados estão corretos?\n");
@@ -85,3 +88,21 @@ int contaQuartos(FILE *fp){
     }
 }
 
+int encontraQuarto(int hospedes,FILE *fp){
+    int achou=0,posicao=-1;
+    fseek(fp,0,SEEK_SET);
+    fread(&quarto,sizeof(quarto),1,fp);
+    while(!feof(fp) && !achou){
+        posicao++;
+        if(quarto.hospedes == hospedes)
+            if(quarto.status == 1)
+                achou = 1;
+        fread(&quarto,sizeof(quarto),1,fp);
+    }
+
+    if(achou)
+        return posicao;
+    else
+        return -1;
+    
+}
