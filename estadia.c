@@ -12,6 +12,7 @@ int verificaFormatoData(char []);
 struct TEstadia{
   int codigo;
   char entrada[11],saida[11];
+  int hospedes;
   
 };
 
