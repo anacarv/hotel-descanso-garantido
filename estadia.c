@@ -9,6 +9,15 @@ int diarias();
 int verificaFormatoData(char []);
 
 
+struct TEstadia{
+  int codigo;
+  char entrada[11],saida[11];
+  int hospedes;
+  
+};
+
+typedef struct TEstadia estadia;
+
 int hospedes;
 char entrada[11],saida[11];
 
