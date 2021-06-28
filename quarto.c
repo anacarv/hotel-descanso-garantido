@@ -47,12 +47,14 @@ int cadastraDadosQuarto(FILE *fp){
     quarto.status = 1;
 
     while(confirmarDados == 0){
-        printf("Digite o número de hóspedes para o quarto\n");
+        printf("Digite o número de hóspedes para o quarto:");
         scanf("%d",&quarto.hospedes);
-
+        printf("Digite o valor da diária do quarto:");
+        scanf("%f",&quarto.valorDiaria);
         
         printf("Por favor, confirme os dados do quarto!\n\n");
         printf("Número do Quarto => %d\nN° de hóspedes => %d\n",quarto.numero,quarto.hospedes);
+        printf("Valor da diária do quarto => %.2f\n",quarto.valorDiaria);
         printf("Status do quarto => %s\n",quarto.status == 1 ? "Disponível" : "Indisponível");
 
         while(confirmarDados != 1 && confirmarDados != 2){
