@@ -10,8 +10,6 @@ int diarias();
 int verificaFormatoData(char[]);
 int quartos();
 
-
-
 typedef struct {
   int codigo, totalDiarias, hospedes, numeroQuarto;
   char entrada[11], saida[11];
@@ -27,6 +25,24 @@ int main(){
 }
 
 int cadastroEstadia(){
+
+  FILE *fp;
+
+  if((fp = fopen("estadia.txt","r+b")) == NULL){
+      printf("Arquivo não existe...\n");
+  }
+  if((fp = fopen("estadia.txt","a+b")) == NULL){
+      printf("Erro na criação do arquivo...\n");
+  }
+
+  cadastroDadosEstadia(fp);
+
+  fclose(fp);
+  return 0;
+}
+
+int cadastroDadosEstadia(FILE *fp){
+  
   int confirmarDados = 0, loopData = 0;
   while (confirmarDados == 0){
 
@@ -70,15 +86,36 @@ int cadastroEstadia(){
         printf("\nPor favor insira um número válido\n\n");
 
     }
-
+  }
+    estadia.codigo = contaEstadia(fp);
     estadia.totalDiarias = diarias();
     quartos(estadia.entrada, estadia.saida);
-    
-
-  }
-
-  return 0;
+    encontraEstadia(fp,estadia.codigo);
 }
+
+int baixaEstadia(){
+  float valorTotal = estadia.totalDiarias * quarto.valorDiaria;
+
+}
+
+int encontraEstadia(FILE *fp,int codigo){
+    int achou=0,posicao=-1;
+    fseek(fp,0,SEEK_SET);
+    fread(&estadia,sizeof(estadia),1,fp);
+    while(!feof(fp) && !achou){
+        posicao++;
+        if(estadia.codigo == codigo)
+            achou = 1;
+        fread(&estadia,sizeof(estadia),1,fp);
+    }
+
+    if(achou)
+        return posicao;
+    else
+        return -1;
+    
+}
+
 
 int quartos(){
   FILE *quartosFile;
@@ -194,3 +231,12 @@ int diarias()
 }
 
 
+
+int contaEstadia(FILE *fp){
+    int i = 1;
+    while(!feof(fp)){
+        fread(&estadia,sizeof(estadia),1,fp);
+        i++;
+    }
+    return i;
+}
