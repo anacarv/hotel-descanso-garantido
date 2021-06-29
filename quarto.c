@@ -17,9 +17,9 @@ int encontraQuarto(int,FILE *);
 int contaQuartos(FILE *);
 
 
-// int main(){
-//     cadastraQuarto();
-// }
+int main(){
+    cadastraQuarto();
+}
 
 int cadastraQuarto(){
 
@@ -86,6 +86,7 @@ int contaQuartos(FILE *fp){
         fread(&quarto,sizeof(quarto),1,fp);
         i++;
     }
+    return i;
 }
 
 int encontraQuarto(int hospedes,FILE *fp){
