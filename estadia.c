@@ -12,8 +12,7 @@ int verificaFormatoData(char []);
 struct TEstadia{
   int codigo;
   char entrada[11],saida[11];
-  int hospedes;
-  
+  int hospedes,numeroDoQuarto;
 };
 
 typedef struct TEstadia estadia;
@@ -159,3 +158,4 @@ int diarias(){
 
     printf("%d",anoTotal);
 }
+
