@@ -17,9 +17,9 @@ int encontraQuarto(int,FILE *);
 int contaQuartos(FILE *);
 
 
-int main(){
-    cadastraQuarto();
-}
+// int main(){
+//     cadastraQuarto();
+// }
 
 int cadastraQuarto(){
 
