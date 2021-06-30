@@ -20,6 +20,7 @@ Testadia estadia;
 
 
 int cadastroEstadia(){
+  printf("\n\n*** Cadastro de Estadia ***\n\n");
 
   FILE *fp;
 
@@ -41,7 +42,6 @@ int cadastroDadosEstadia(FILE *fp){
   int confirmarDados = 0, loopData = 0;
   while (confirmarDados == 0){
 
-    printf("CADASTRO DE ESTADIA\n\n");
     printf("Por favor, digite o nome do cliente que deseja se hospedar:");
     scanf("%s", &estadia.nomeCliente);
     printf("Quantidade de hóspedes:");

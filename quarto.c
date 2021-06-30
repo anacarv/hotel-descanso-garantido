@@ -22,7 +22,7 @@ int contaQuartos(FILE *);
 // }
 
 int cadastraQuarto(){
-
+    printf("\n\n*** Cadastro de Quarto ***\n\n");
     FILE *fp;
 
     if((fp = fopen("quartos.txt","r+b")) == NULL){
